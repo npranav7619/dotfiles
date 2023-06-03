@@ -1,0 +1,93 @@
+#
+# modified 2021-06-28
+#
+
+env:
+  # This value is used to set the `$TERM` environment variable for
+  # each instance of Alacritty. If it is not present, alacritty will
+  # check the local terminfo database and use `alacritty` if it is
+  # available, otherwise `xterm-256color` is used.
+  TERM: xterm-256color
+
+window:
+  opacity: 0.9
+  # Spread additional padding evenly around the terminal content.
+  #  padding:
+  #   x: 10
+  #   y: 10
+  # Remove buttons
+  #  decorations: none
+  # Open in full screen 
+  # startup_mode: SimpleFullscreen
+  # Dimensions if not SimpleFullscreen
+  #dimensions:
+  #columns: 140
+  #lines: 38
+# Make background slightly transparent
+#background_opacity: 0.82
+cursor:
+  # Block Underline or Beam
+  style: Underline
+font:
+  normal:
+    # Needs to be powerline font if using zsh theme with powerline
+    family: agave Nerd Font
+  # Font size
+  size: 14
+  # Better font rendering for mac
+  # use_thin_strokes: true
+
+# Colors (Hyper)
+colors:
+  cursor:
+    text: '#fefff2'
+    cursor: '#f0cc09'
+
+  selection:
+    text: '#b5b5b5'
+    background: '#18354f'
+
+  primary:
+    background: '#132738'
+    foreground: '#ffffff'
+
+  normal:
+    black: '#000000'
+    red: '#ff0000'
+    green: '#38de21'
+    yellow: '#ffe50a'
+    blue: '#1460d2'
+    magenta: '#ff005d'
+    cyan: '#00bbbb'
+    white: '#bbbbbb'
+
+  bright:
+    black: '#555555'
+    red: '#f40e17'
+    green: '#3bd01d'
+    yellow: '#edc809'
+    blue: '#5555ff'
+    magenta: '#ff55ff'
+    cyan: '#6ae3fa'
+    white: '#ffffff'
+
+selection:
+  # This string contains all characters that are used as separators for
+  # "semantic words" in Alacritty.
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+
+  # When true, selected text will be copied to the primary clipboard
+  save_to_clipboard: true
+
+# Login shell with arguments
+shell:
+  program: /bin/zsh
+  args:
+    - --login
+
+# Startup directory, unset or None for home directory
+working_directory: None
+
+import:
+  - ~/.alacritty-colorscheme/themes/{scheme_name}.yaml
+theme: Cobalt-2
