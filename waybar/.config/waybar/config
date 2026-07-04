@@ -23,9 +23,9 @@
         "max-length": 60
     },
     "mpris": {
-        "format": "<span font_size='140%'></span>  {dynamic}",
-        "format-paused": "<span font_size='140%'></span>  {dynamic}",
-        "format-stopped": "<span font_size='140%'></span>  stopped",
+        "format": "  {dynamic}",
+        "format-paused": "  {dynamic}",
+        "format-stopped": "  stopped",
         "dynamic-order": ["title", "artist"],
         "dynamic-separator": " - ",
         "title-len": 25,
@@ -38,12 +38,12 @@
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>"
     },
     "custom/snip": {
-        "format": "<span font_size='140%'></span>",
+        "format": "",
         "tooltip-format": "Snip screenshot to clipboard",
         "on-click": "grim -g \"$(slurp)\" - | wl-copy"
     },
     "idle_inhibitor": {
-        "format": "<span font_size='140%'>{icon}</span>",
+        "format": "{icon}",
         "tooltip-format-activated": "Stay-awake mode on (click to allow sleep)",
         "tooltip-format-deactivated": "Stay-awake mode off (click to keep awake)",
         "format-icons": {
@@ -52,7 +52,7 @@
         }
     },
     "backlight": {
-        "format": "<span font_size='140%'>{icon}</span>  {percent}%",
+        "format": "{icon}  {percent}%",
         "format-icons": ["", ""]
     },
     "battery": {
@@ -60,19 +60,19 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "<span font_size='140%'>{icon}</span>  {capacity}%",
-        "format-charging": "<span font_size='140%'></span>  {capacity}%",
+        "format": "{icon}  {capacity}%",
+        "format-charging": "  {capacity}%",
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        "format-wifi": "<span font_size='140%'></span>  {signalStrength}%",
-        "format-ethernet": "<span font_size='140%'></span>  {ifname}",
-        "format-disconnected": "<span font_size='140%'></span>  disconnected",
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "  {ifname}",
+        "format-disconnected": "  disconnected",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        "format": "<span font_size='140%'>{icon}</span>  {volume}%",
-        "format-muted": "<span font_size='140%'></span>  muted",
+        "format": "{icon}  {volume}%",
+        "format-muted": "  muted",
         "format-icons": {
             "default": ["", "", ""]
         },
