@@ -25,7 +25,7 @@ set $peach    #fab387
 font pango:Agave Nerd Font 11
 default_border pixel 2
 default_floating_border pixel 2
-gaps inner 20
+gaps inner 5
 gaps outer 8
 smart_gaps off
 

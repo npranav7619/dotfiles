@@ -7,7 +7,7 @@
     "margin-left": 8,
     "margin-right": 8,
 
-    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["mpris", "clock", "custom/snip"],
     "modules-right": ["idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "tray"],
 
@@ -18,10 +18,14 @@
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
+    "sway/window": {
+        "format": "{title}",
+        "max-length": 60
+    },
     "mpris": {
-        "format": " {dynamic}",
-        "format-paused": " {dynamic}",
-        "format-stopped": " stopped",
+        "format": "<span font_size='140%'></span>  {dynamic}",
+        "format-paused": "<span font_size='140%'></span>  {dynamic}",
+        "format-stopped": "<span font_size='140%'></span>  stopped",
         "dynamic-order": ["title", "artist"],
         "dynamic-separator": " - ",
         "title-len": 25,
@@ -34,19 +38,21 @@
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>"
     },
     "custom/snip": {
-        "format": "",
+        "format": "<span font_size='140%'></span>",
         "tooltip-format": "Snip screenshot to clipboard",
         "on-click": "grim -g \"$(slurp)\" - | wl-copy"
     },
     "idle_inhibitor": {
-        "format": "{icon}",
+        "format": "<span font_size='140%'>{icon}</span>",
+        "tooltip-format-activated": "Stay-awake mode on (click to allow sleep)",
+        "tooltip-format-deactivated": "Stay-awake mode off (click to keep awake)",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": "",
+            "deactivated": ""
         }
     },
     "backlight": {
-        "format": "{icon} {percent}%",
+        "format": "<span font_size='140%'>{icon}</span>  {percent}%",
         "format-icons": ["", ""]
     },
     "battery": {
@@ -54,19 +60,19 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
+        "format": "<span font_size='140%'>{icon}</span>  {capacity}%",
+        "format-charging": "<span font_size='140%'></span>  {capacity}%",
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        "format-wifi": " {signalStrength}%",
-        "format-ethernet": " {ifname}",
-        "format-disconnected": " disconnected",
+        "format-wifi": "<span font_size='140%'></span>  {signalStrength}%",
+        "format-ethernet": "<span font_size='140%'></span>  {ifname}",
+        "format-disconnected": "<span font_size='140%'></span>  disconnected",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": " muted",
+        "format": "<span font_size='140%'>{icon}</span>  {volume}%",
+        "format-muted": "<span font_size='140%'></span>  muted",
         "format-icons": {
             "default": ["", "", ""]
         },
