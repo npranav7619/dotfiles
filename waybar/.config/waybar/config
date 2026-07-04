@@ -3,9 +3,12 @@
     "position": "top",
     "height": 32,
     "spacing": 4,
+    "margin-top": 8,
+    "margin-left": 8,
+    "margin-right": 8,
 
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["clock"],
+    "modules-center": ["mpris", "clock", "custom/snip"],
     "modules-right": ["idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "tray"],
 
     "sway/workspaces": {
@@ -15,16 +18,32 @@
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
+    "mpris": {
+        "format": " {dynamic}",
+        "format-paused": " {dynamic}",
+        "format-stopped": " stopped",
+        "dynamic-order": ["title", "artist"],
+        "dynamic-separator": " - ",
+        "title-len": 25,
+        "artist-len": 20,
+        "max-length": 40,
+        "tooltip-format": "{player} : {dynamic}"
+    },
+    "clock": {
+        "format": "{:%H:%M   %a %d %b}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>"
+    },
+    "custom/snip": {
+        "format": "",
+        "tooltip-format": "Snip screenshot to clipboard",
+        "on-click": "grim -g \"$(slurp)\" - | wl-copy"
+    },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
             "activated": "",
             "deactivated": ""
         }
-    },
-    "clock": {
-        "format": "{:%H:%M   %a %d %b}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>"
     },
     "backlight": {
         "format": "{icon} {percent}%",
