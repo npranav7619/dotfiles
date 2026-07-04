@@ -25,6 +25,8 @@
     font-family: "Agave Nerd Font";
     font-size: 14px;
     min-height: 0;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+        opacity 0.2s ease-in-out;
 }
 
 window#waybar {
@@ -49,7 +51,17 @@ window#waybar > box {
     color: @subtext0;
 }
 
+#workspaces button:hover {
+    background-color: @surface1;
+    color: @text;
+}
+
 #workspaces button.focused {
+    background-color: @mauve;
+    color: @mantle;
+}
+
+#workspaces button.focused:hover {
     background-color: @mauve;
     color: @mantle;
 }
@@ -92,6 +104,14 @@ window#waybar > box {
     background-color: @surface0;
     border-radius: 6px;
     color: @text;
+}
+
+#mpris:hover,
+#custom-snip:hover,
+#custom-theme:hover,
+#idle_inhibitor:hover,
+#pulseaudio:hover {
+    background-color: @surface1;
 }
 
 #mpris {
@@ -150,10 +170,17 @@ window#waybar > box {
     color: @yellow;
 }
 
-#battery.critical {
+#battery.critical:not(.charging) {
     color: @red;
+    animation: blink 1s ease-in-out infinite alternate;
 }
 
 #battery.charging {
     color: @green;
+}
+
+@keyframes blink {
+    to {
+        opacity: 0.4;
+    }
 }
