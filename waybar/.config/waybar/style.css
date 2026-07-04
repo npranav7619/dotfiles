@@ -98,6 +98,7 @@ window#waybar > box {
 #network,
 #backlight,
 #battery,
+#custom-power,
 #tray {
     padding: 0 10px;
     margin: 4px 2px;
@@ -110,8 +111,18 @@ window#waybar > box {
 #custom-snip:hover,
 #custom-theme:hover,
 #idle_inhibitor:hover,
-#pulseaudio:hover {
+#pulseaudio:hover,
+#custom-power:hover {
     background-color: @surface1;
+}
+
+/* icon-only buttons: the proportional font gives single glyphs uneven
+   left/right bearing, so they don't sit centered in the pill. The mono
+   variant has a uniform advance width per glyph, which centers cleanly. */
+#custom-snip,
+#custom-power {
+    font-family: "Agave Nerd Font Mono";
+    font-size: 16px;
 }
 
 #mpris {
@@ -132,6 +143,10 @@ window#waybar > box {
 
 #custom-theme {
     color: @lavender;
+}
+
+#custom-power {
+    color: @red;
 }
 
 #tray {

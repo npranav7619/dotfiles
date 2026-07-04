@@ -9,7 +9,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["mpris", "clock", "custom/snip"],
-    "modules-right": ["custom/theme", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "tray"],
+    "modules-right": ["custom/theme", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "custom/power", "tray"],
 
     "sway/workspaces": {
         "disable-scroll": true,
@@ -84,6 +84,11 @@
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "custom/power": {
+        "format": "",
+        "tooltip-format": "Power menu: lock / logout / restart / shutdown",
+        "on-click": "~/.config/waybar/scripts/powermenu.sh"
     },
     "tray": {
         "spacing": 10
