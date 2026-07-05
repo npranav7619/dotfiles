@@ -6,10 +6,11 @@ each app live (sway reload, mako reload, SIGUSR1 to running foot instances,
 restart waybar). wofi and swaylock pick up their config fresh next launch,
 no reload needed.
 """
-import os
 import subprocess
+import sys
 from pathlib import Path
 
+# scripts/ -> waybar(.config/waybar) -> .config -> waybar(pkg) -> dotfiles root
 REPO_ROOT = Path(__file__).resolve().parents[4]
 STATE_FILE = Path.home() / ".cache" / "waybar-theme"
 
@@ -19,6 +20,21 @@ WAYBAR_FILE = REPO_ROOT / "waybar/.config/waybar/style.css"
 MAKO_FILE = REPO_ROOT / "mako/.config/mako/config"
 WOFI_FILE = REPO_ROOT / "wofi/.config/wofi/style.css"
 SWAYLOCK_FILE = REPO_ROOT / "swaylock/.config/swaylock/config"
+
+ALL_FILES = (SWAY_FILE, FOOT_FILE, WAYBAR_FILE, MAKO_FILE, WOFI_FILE, SWAYLOCK_FILE)
+
+
+def check_layout() -> None:
+    """Fail loudly if the repo was moved/restructured, instead of writing
+    to the wrong place or crashing with a cryptic traceback mid-way through
+    (which would leave some app files themed and others not)."""
+    missing = [str(p) for p in ALL_FILES if not p.is_file()]
+    if missing:
+        sys.exit(
+            "cycle-theme.py: expected config file(s) not found, "
+            "REPO_ROOT may be wrong (" + str(REPO_ROOT) + "):\n  "
+            + "\n  ".join(missing)
+        )
 
 THEMES = {
     "catppuccin-mocha": {
@@ -414,28 +430,37 @@ separator-color=00000000""",
 THEME_ORDER = ["catppuccin-mocha", "gruvbox-dark", "nord", "dracula"]
 
 
-def replace_block(text: str, new_content: str) -> str:
+def replace_block(path: Path, text: str, new_content: str) -> str:
     start_marker = "THEME:COLORS:START"
     end_marker = "THEME:COLORS:END"
-    start_idx = text.index(start_marker)
-    start_line_end = text.index("\n", start_idx) + 1
-    end_idx = text.index(end_marker)
-    end_line_start = text.rfind("\n", 0, end_idx) + 1
+    try:
+        start_idx = text.index(start_marker)
+        start_line_end = text.index("\n", start_idx) + 1
+        end_idx = text.index(end_marker)
+        end_line_start = text.rfind("\n", 0, end_idx) + 1
+    except ValueError:
+        sys.exit(f"cycle-theme.py: {path} is missing a THEME:COLORS:START/END marker pair")
     return text[:start_line_end] + new_content + "\n" + text[end_line_start:]
 
 
 def apply_theme(name: str) -> None:
     theme = THEMES[name]
-    for path, key in (
+    targets = (
         (SWAY_FILE, "sway"),
         (FOOT_FILE, "foot"),
         (WAYBAR_FILE, "waybar"),
         (MAKO_FILE, "mako"),
         (WOFI_FILE, "wofi"),
         (SWAYLOCK_FILE, "swaylock"),
-    ):
-        text = path.read_text(encoding="utf-8")
-        path.write_text(replace_block(text, theme[key]), encoding="utf-8")
+    )
+    # Compute every new file's contents before writing any of them, so a
+    # bad marker in one file can't leave some apps re-themed and others not.
+    rewritten = {
+        path: replace_block(path, path.read_text(encoding="utf-8"), theme[key])
+        for path, key in targets
+    }
+    for path, new_text in rewritten.items():
+        path.write_text(new_text, encoding="utf-8")
 
 
 def reload_apps() -> None:
@@ -452,6 +477,8 @@ def reload_apps() -> None:
 
 
 def main() -> None:
+    check_layout()
+
     current = STATE_FILE.read_text().strip() if STATE_FILE.exists() else THEME_ORDER[0]
     if current not in THEME_ORDER:
         current = THEME_ORDER[0]
