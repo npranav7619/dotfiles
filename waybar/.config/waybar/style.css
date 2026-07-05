@@ -105,6 +105,7 @@ window#waybar > box {
 #network,
 #backlight,
 #battery,
+#custom-monitors,
 #custom-power,
 #tray {
     padding: 0 10px;
@@ -119,6 +120,7 @@ window#waybar > box {
 #custom-theme:hover,
 #idle_inhibitor:hover,
 #pulseaudio:hover,
+#custom-monitors:hover,
 #custom-power:hover {
     background-color: @surface1;
 }
@@ -127,6 +129,7 @@ window#waybar > box {
    left/right bearing, so they don't sit centered in the pill. The mono
    variant has a uniform advance width per glyph, which centers cleanly. */
 #custom-snip,
+#custom-monitors,
 #custom-power {
     font-family: "Agave Nerd Font Mono";
     font-size: 16px;
@@ -150,6 +153,10 @@ window#waybar > box {
 
 #custom-theme {
     color: @lavender;
+}
+
+#custom-monitors {
+    color: @blue;
 }
 
 #custom-power {

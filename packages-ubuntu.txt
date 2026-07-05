@@ -78,6 +78,7 @@ ubuntu-standard
 ubuntu-wallpapers
 unzip
 waybar
+wdisplays
 wget
 wl-clipboard
 wofi

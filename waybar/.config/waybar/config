@@ -9,7 +9,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["mpris", "clock#time", "clock#date", "custom/snip"],
-    "modules-right": ["custom/theme", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "custom/power", "tray"],
+    "modules-right": ["custom/theme", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "custom/monitors", "custom/power", "tray"],
 
     "sway/workspaces": {
         "disable-scroll": true,
@@ -98,6 +98,11 @@
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "custom/monitors": {
+        "format": "",
+        "tooltip-format": "Manage monitors (wdisplays)",
+        "on-click": "wdisplays"
     },
     "custom/power": {
         "format": "",
