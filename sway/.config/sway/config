@@ -49,9 +49,9 @@ input type:touchpad {
 
 ### Idle / lock
 exec swayidle -w \
-         timeout 300 'swaylock -c $base -f' \
+         timeout 300 'swaylock -f' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -c $base -f'
+         before-sleep 'swaylock -f'
 
 ### Key bindings
 #
@@ -60,7 +60,9 @@ exec swayidle -w \
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+q kill
     bindsym $mod+d exec $menu
-    bindsym $mod+Escape exec swaylock -c $base -f
+    bindsym $mod+Escape exec swaylock -f
+    bindsym $mod+l exec swaylock -f
+    bindsym $mod+Ctrl+l exec swaylock -f
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -74,7 +76,6 @@ exec swayidle -w \
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up

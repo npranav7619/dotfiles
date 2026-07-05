@@ -85,9 +85,16 @@ window#waybar > box {
     font-style: italic;
 }
 
-#clock {
+#clock.time,
+#clock.date {
     font-weight: bold;
     color: @lavender;
+}
+
+#clock.date {
+    color: @subtext0;
+    font-weight: normal;
+    margin-left: 4px;
 }
 
 #mpris,

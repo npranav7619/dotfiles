@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Cycle the system color theme across sway, foot, waybar, mako and wofi.
+"""Cycle the system color theme across sway, foot, waybar, mako, wofi and swaylock.
 
 Rewrites the THEME:COLORS block in each app's config file, then reloads
 each app live (sway reload, mako reload, SIGUSR1 to running foot instances,
-restart waybar). wofi picks up its config fresh on next launch, no reload
-needed.
+restart waybar). wofi and swaylock pick up their config fresh next launch,
+no reload needed.
 """
 import os
 import subprocess
@@ -18,6 +18,7 @@ FOOT_FILE = REPO_ROOT / "foot/.config/foot/foot.ini"
 WAYBAR_FILE = REPO_ROOT / "waybar/.config/waybar/style.css"
 MAKO_FILE = REPO_ROOT / "mako/.config/mako/config"
 WOFI_FILE = REPO_ROOT / "wofi/.config/wofi/style.css"
+SWAYLOCK_FILE = REPO_ROOT / "swaylock/.config/swaylock/config"
 
 THEMES = {
     "catppuccin-mocha": {
@@ -82,6 +83,40 @@ default-timeout=0""",
 @define-color surface0 #313244;
 @define-color text     #cdd6f4;
 @define-color mauve    #cba6f7;""",
+        "swaylock": """color=1e1e2e
+
+ring-color=313244
+ring-clear-color=fab387
+ring-caps-lock-color=f9e2af
+ring-ver-color=89b4fa
+ring-wrong-color=f38ba8
+
+inside-color=1e1e2e
+inside-clear-color=313244
+inside-caps-lock-color=313244
+inside-ver-color=313244
+inside-wrong-color=313244
+
+key-hl-color=a6e3a1
+bs-hl-color=fab387
+
+line-color=00000000
+line-clear-color=00000000
+line-caps-lock-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+
+text-color=cdd6f4
+text-clear-color=cdd6f4
+text-ver-color=cdd6f4
+text-wrong-color=f38ba8
+text-caps-lock-color=f9e2af
+
+layout-bg-color=1e1e2e
+layout-border-color=cba6f7
+layout-text-color=cdd6f4
+
+separator-color=00000000""",
     },
     "gruvbox-dark": {
         "sway": """set $base     #1d2021
@@ -145,6 +180,40 @@ default-timeout=0""",
 @define-color surface0 #3c3836;
 @define-color text     #ebdbb2;
 @define-color mauve    #d3869b;""",
+        "swaylock": """color=1d2021
+
+ring-color=3c3836
+ring-clear-color=fe8019
+ring-caps-lock-color=fabd2f
+ring-ver-color=83a598
+ring-wrong-color=fb4934
+
+inside-color=1d2021
+inside-clear-color=3c3836
+inside-caps-lock-color=3c3836
+inside-ver-color=3c3836
+inside-wrong-color=3c3836
+
+key-hl-color=b8bb26
+bs-hl-color=fe8019
+
+line-color=00000000
+line-clear-color=00000000
+line-caps-lock-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+
+text-color=ebdbb2
+text-clear-color=ebdbb2
+text-ver-color=ebdbb2
+text-wrong-color=fb4934
+text-caps-lock-color=fabd2f
+
+layout-bg-color=1d2021
+layout-border-color=d3869b
+layout-text-color=ebdbb2
+
+separator-color=00000000""",
     },
     "nord": {
         "sway": """set $base     #2e3440
@@ -208,6 +277,40 @@ default-timeout=0""",
 @define-color surface0 #3b4252;
 @define-color text     #eceff4;
 @define-color mauve    #b48ead;""",
+        "swaylock": """color=2e3440
+
+ring-color=3b4252
+ring-clear-color=d08770
+ring-caps-lock-color=ebcb8b
+ring-ver-color=81a1c1
+ring-wrong-color=bf616a
+
+inside-color=2e3440
+inside-clear-color=3b4252
+inside-caps-lock-color=3b4252
+inside-ver-color=3b4252
+inside-wrong-color=3b4252
+
+key-hl-color=a3be8c
+bs-hl-color=d08770
+
+line-color=00000000
+line-clear-color=00000000
+line-caps-lock-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+
+text-color=eceff4
+text-clear-color=eceff4
+text-ver-color=eceff4
+text-wrong-color=bf616a
+text-caps-lock-color=ebcb8b
+
+layout-bg-color=2e3440
+layout-border-color=b48ead
+layout-text-color=eceff4
+
+separator-color=00000000""",
     },
     "dracula": {
         "sway": """set $base     #282a36
@@ -271,6 +374,40 @@ default-timeout=0""",
 @define-color surface0 #44475a;
 @define-color text     #f8f8f2;
 @define-color mauve    #bd93f9;""",
+        "swaylock": """color=282a36
+
+ring-color=44475a
+ring-clear-color=ffb86c
+ring-caps-lock-color=f1fa8c
+ring-ver-color=8be9fd
+ring-wrong-color=ff5555
+
+inside-color=282a36
+inside-clear-color=44475a
+inside-caps-lock-color=44475a
+inside-ver-color=44475a
+inside-wrong-color=44475a
+
+key-hl-color=50fa7b
+bs-hl-color=ffb86c
+
+line-color=00000000
+line-clear-color=00000000
+line-caps-lock-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+
+text-color=f8f8f2
+text-clear-color=f8f8f2
+text-ver-color=f8f8f2
+text-wrong-color=ff5555
+text-caps-lock-color=f1fa8c
+
+layout-bg-color=282a36
+layout-border-color=bd93f9
+layout-text-color=f8f8f2
+
+separator-color=00000000""",
     },
 }
 
@@ -295,6 +432,7 @@ def apply_theme(name: str) -> None:
         (WAYBAR_FILE, "waybar"),
         (MAKO_FILE, "mako"),
         (WOFI_FILE, "wofi"),
+        (SWAYLOCK_FILE, "swaylock"),
     ):
         text = path.read_text(encoding="utf-8")
         path.write_text(replace_block(text, theme[key]), encoding="utf-8")

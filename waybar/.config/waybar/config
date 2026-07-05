@@ -8,7 +8,7 @@
     "margin-right": 8,
 
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
-    "modules-center": ["mpris", "clock", "custom/snip"],
+    "modules-center": ["mpris", "clock#time", "clock#date", "custom/snip"],
     "modules-right": ["custom/theme", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "custom/power", "tray"],
 
     "sway/workspaces": {
@@ -33,9 +33,23 @@
         "max-length": 40,
         "tooltip-format": "{player} : {dynamic}"
     },
-    "clock": {
-        "format": "{:%H:%M   %a %d %b}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>"
+    "clock#time": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%H:%M:%S}",
+        "tooltip": false
+    },
+    "clock#date": {
+        "format": "{:%a %d %b}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
     },
     "custom/snip": {
         "format": "",

@@ -9,7 +9,7 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PACKAGES=(foot mako sway waybar wofi)
+PACKAGES=(foot mako sway swaylock waybar wofi)
 FONT_DIR="$HOME/.local/share/fonts/Agave"
 BACKUP_DIR="$HOME/.config-backup-$(date +%Y%m%d%H%M%S)"
 
