@@ -54,6 +54,27 @@ fail on those two lines specifically. If that happens, drop them from the file (
 swap in whatever `ubuntu-drivers devices` recommends) and re-run -- everything else
 in the list is generic and not expected to go stale the same way.
 
+### Hybrid NVIDIA laptops: black screen on login
+
+On a hybrid-GPU laptop (NVIDIA + Intel/AMD), `./install.sh --packages` detects this
+via `lspci` and automatically disables `nvidia-drm`'s modeset capability
+(`/etc/modprobe.d/zzz-nvidia-drm-nomodeset.conf`). Without this, NVIDIA and the other
+GPU can race for the display/KMS role at boot -- when NVIDIA occasionally wins that
+race it can't actually drive the display, leaving a black screen that needs a hard
+reset to clear. With modeset disabled, NVIDIA can never claim that role (it still
+loads normally for compute/CUDA), so the other GPU is always the one driving the
+display. This is a no-op on non-hybrid systems and skips itself if already applied.
+
+The filename is prefixed `zzz-` deliberately: the NVIDIA driver package ships its own
+`modprobe.d` file that sets `modeset=1`, and `modprobe.d` files are applied in
+alphabetical order with the last one read winning. Anything that doesn't sort after
+NVIDIA's own file gets silently overridden by it.
+
+What this does **not** cover: if your compositor is launched through a custom
+wrapper script that pins a specific `/dev/dri/cardN` device (as opposed to letting
+the compositor pick automatically), that wrapper is inherently specific to one
+machine's PCI layout and isn't something `install.sh` can safely generate for you.
+
 ## Structure
 
 Each top-level directory is a stow package mirroring `$HOME`, e.g.
