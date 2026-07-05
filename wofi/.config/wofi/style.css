@@ -7,6 +7,10 @@
 @define-color mauve    #cba6f7;
 /* THEME:COLORS:END */
 
+* {
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
 window {
     margin: 0px;
     border: 2px solid @mauve;
@@ -49,6 +53,10 @@ window {
 
 #entry {
     border-radius: 8px;
+}
+
+#entry:hover {
+    background-color: @surface0;
 }
 
 #entry:selected {
