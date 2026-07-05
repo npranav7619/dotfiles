@@ -31,3 +31,7 @@ before running this):
 Each top-level directory is a stow package mirroring `$HOME`, e.g.
 `foot/.config/foot/foot.ini` links to `~/.config/foot/foot.ini`. To
 (re)link a single package by hand: `stow -v -t ~ foot`.
+
+
+## Wallpaper
+original wallpaper credits [walls-catppuccin-mocha](https://github.com/orangci/walls-catppuccin-mocha)
