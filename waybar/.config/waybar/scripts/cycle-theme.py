@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Cycle the system color theme across sway, foot, waybar, mako, wofi and swaylock.
+"""Cycle the system color theme across sway, kitty, waybar, mako, wofi and swaylock.
 
 Rewrites the THEME:COLORS block in each app's config file, then reloads
-each app live (sway reload, mako reload, SIGUSR1 to running foot instances,
-restart waybar). wofi and swaylock pick up their config fresh next launch,
-no reload needed.
+each app live where possible (sway reload, mako reload, restart waybar).
+wofi, swaylock and kitty pick up their config fresh on next launch --
+existing kitty windows need a manual reload (ctrl+shift+F5).
 """
 import subprocess
 import sys
@@ -15,13 +15,13 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 STATE_FILE = Path.home() / ".cache" / "waybar-theme"
 
 SWAY_FILE = REPO_ROOT / "sway/.config/sway/config"
-FOOT_FILE = REPO_ROOT / "foot/.config/foot/foot.ini"
+KITTY_FILE = REPO_ROOT / "kitty/.config/kitty/kitty.conf"
 WAYBAR_FILE = REPO_ROOT / "waybar/.config/waybar/style.css"
 MAKO_FILE = REPO_ROOT / "mako/.config/mako/config"
 WOFI_FILE = REPO_ROOT / "wofi/.config/wofi/style.css"
 SWAYLOCK_FILE = REPO_ROOT / "swaylock/.config/swaylock/config"
 
-ALL_FILES = (SWAY_FILE, FOOT_FILE, WAYBAR_FILE, MAKO_FILE, WOFI_FILE, SWAYLOCK_FILE)
+ALL_FILES = (SWAY_FILE, KITTY_FILE, WAYBAR_FILE, MAKO_FILE, WOFI_FILE, SWAYLOCK_FILE)
 
 
 def check_layout() -> None:
@@ -44,29 +44,28 @@ set $rosewater #f5e0dc
 set $overlay0 #6c7086
 set $mauve    #cba6f7
 set $peach    #fab387""",
-        "foot": """foreground=cdd6f4
-background=1e1e2e
+        "kitty": """foreground            #cdd6f4
+background            #1e1e2e
+selection_foreground  #1e1e2e
+selection_background  #f5e0dc
+url_color             #f9e2af
 
-regular0=45475a
-regular1=f38ba8
-regular2=a6e3a1
-regular3=f9e2af
-regular4=89b4fa
-regular5=f5c2e7
-regular6=94e2d5
-regular7=bac2de
-bright0=585b70
-bright1=f38ba8
-bright2=a6e3a1
-bright3=f9e2af
-bright4=89b4fa
-bright5=f5c2e7
-bright6=94e2d5
-bright7=a6adc8
-
-selection-foreground=1e1e2e
-selection-background=f5e0dc
-urls=f9e2af""",
+color0  #45475a
+color1  #f38ba8
+color2  #a6e3a1
+color3  #f9e2af
+color4  #89b4fa
+color5  #f5c2e7
+color6  #94e2d5
+color7  #bac2de
+color8 #585b70
+color9 #f38ba8
+color10 #a6e3a1
+color11 #f9e2af
+color12 #89b4fa
+color13 #f5c2e7
+color14 #94e2d5
+color15 #a6adc8""",
         "waybar": """@define-color base      #1e1e2e;
 @define-color mantle    #181825;
 @define-color text      #cdd6f4;
@@ -141,29 +140,28 @@ set $rosewater #ebdbb2
 set $overlay0 #7c6f64
 set $mauve    #d3869b
 set $peach    #fe8019""",
-        "foot": """foreground=ebdbb2
-background=1d2021
+        "kitty": """foreground            #ebdbb2
+background            #1d2021
+selection_foreground  #1d2021
+selection_background  #ebdbb2
+url_color             #fabd2f
 
-regular0=282828
-regular1=cc241d
-regular2=98971a
-regular3=d79921
-regular4=458588
-regular5=b16286
-regular6=689d6a
-regular7=a89984
-bright0=928374
-bright1=fb4934
-bright2=b8bb26
-bright3=fabd2f
-bright4=83a598
-bright5=d3869b
-bright6=8ec07c
-bright7=ebdbb2
-
-selection-foreground=1d2021
-selection-background=ebdbb2
-urls=fabd2f""",
+color0  #282828
+color1  #cc241d
+color2  #98971a
+color3  #d79921
+color4  #458588
+color5  #b16286
+color6  #689d6a
+color7  #a89984
+color8 #928374
+color9 #fb4934
+color10 #b8bb26
+color11 #fabd2f
+color12 #83a598
+color13 #d3869b
+color14 #8ec07c
+color15 #ebdbb2""",
         "waybar": """@define-color base      #1d2021;
 @define-color mantle    #1d2021;
 @define-color text      #ebdbb2;
@@ -238,29 +236,28 @@ set $rosewater #eceff4
 set $overlay0 #4c566a
 set $mauve    #b48ead
 set $peach    #d08770""",
-        "foot": """foreground=d8dee9
-background=2e3440
+        "kitty": """foreground            #d8dee9
+background            #2e3440
+selection_foreground  #2e3440
+selection_background  #88c0d0
+url_color             #ebcb8b
 
-regular0=3b4252
-regular1=bf616a
-regular2=a3be8c
-regular3=ebcb8b
-regular4=81a1c1
-regular5=b48ead
-regular6=88c0d0
-regular7=e5e9f0
-bright0=4c566a
-bright1=bf616a
-bright2=a3be8c
-bright3=ebcb8b
-bright4=81a1c1
-bright5=b48ead
-bright6=8fbcbb
-bright7=eceff4
-
-selection-foreground=2e3440
-selection-background=88c0d0
-urls=ebcb8b""",
+color0  #3b4252
+color1  #bf616a
+color2  #a3be8c
+color3  #ebcb8b
+color4  #81a1c1
+color5  #b48ead
+color6  #88c0d0
+color7  #e5e9f0
+color8 #4c566a
+color9 #bf616a
+color10 #a3be8c
+color11 #ebcb8b
+color12 #81a1c1
+color13 #b48ead
+color14 #8fbcbb
+color15 #eceff4""",
         "waybar": """@define-color base      #2e3440;
 @define-color mantle    #2e3440;
 @define-color text      #eceff4;
@@ -335,29 +332,28 @@ set $rosewater #ff79c6
 set $overlay0 #6272a4
 set $mauve    #bd93f9
 set $peach    #ffb86c""",
-        "foot": """foreground=f8f8f2
-background=282a36
+        "kitty": """foreground            #f8f8f2
+background            #282a36
+selection_foreground  #f8f8f2
+selection_background  #44475a
+url_color             #f1fa8c
 
-regular0=21222c
-regular1=ff5555
-regular2=50fa7b
-regular3=f1fa8c
-regular4=bd93f9
-regular5=ff79c6
-regular6=8be9fd
-regular7=f8f8f2
-bright0=6272a4
-bright1=ff6e6e
-bright2=69ff94
-bright3=ffffa5
-bright4=d6acff
-bright5=ff92df
-bright6=a4ffff
-bright7=ffffff
-
-selection-foreground=f8f8f2
-selection-background=44475a
-urls=f1fa8c""",
+color0  #21222c
+color1  #ff5555
+color2  #50fa7b
+color3  #f1fa8c
+color4  #bd93f9
+color5  #ff79c6
+color6  #8be9fd
+color7  #f8f8f2
+color8 #6272a4
+color9 #ff6e6e
+color10 #69ff94
+color11 #ffffa5
+color12 #d6acff
+color13 #ff92df
+color14 #a4ffff
+color15 #ffffff""",
         "waybar": """@define-color base      #282a36;
 @define-color mantle    #21222c;
 @define-color text      #f8f8f2;
@@ -447,7 +443,7 @@ def apply_theme(name: str) -> None:
     theme = THEMES[name]
     targets = (
         (SWAY_FILE, "sway"),
-        (FOOT_FILE, "foot"),
+        (KITTY_FILE, "kitty"),
         (WAYBAR_FILE, "waybar"),
         (MAKO_FILE, "mako"),
         (WOFI_FILE, "wofi"),
@@ -466,7 +462,11 @@ def apply_theme(name: str) -> None:
 def reload_apps() -> None:
     subprocess.run(["swaymsg", "reload"], check=False)
     subprocess.run(["makoctl", "reload"], check=False)
-    subprocess.run(["pkill", "-SIGUSR1", "foot"], check=False)
+    # kitty has no confirmed-safe reload signal (SIGUSR1 falls back to the
+    # default terminate action for processes that don't handle it -- not
+    # worth the risk of killing every open terminal just to swap a theme).
+    # New kitty windows pick up the fresh config automatically; existing
+    # ones need a manual reload (default: ctrl+shift+F5).
     subprocess.run(["pkill", "-x", "waybar"], check=False)
     subprocess.Popen(
         ["waybar"],

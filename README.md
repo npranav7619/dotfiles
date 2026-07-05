@@ -4,9 +4,9 @@ Minimal Sway desktop, managed with [GNU Stow](https://www.gnu.org/software/stow/
 
 - **Theme:** Catppuccin Mocha by default, click the paint-brush icon in waybar to cycle
   through Catppuccin Mocha / Gruvbox Dark / Nord / Dracula -- applied consistently across
-  foot, sway, waybar, mako, wofi and swaylock.
+  kitty, sway, waybar, mako, wofi and swaylock.
 - **Font:** [Agave Nerd Font](https://github.com/ryanoasis/nerd-fonts).
-- **Packages:** foot (terminal), sway (compositor), waybar (bar), mako (notifications),
+- **Packages:** kitty (terminal), sway (compositor), waybar (bar), mako (notifications),
   wofi (launcher), swaylock (lock screen).
 
 ## Tested with
@@ -20,7 +20,7 @@ all need a reasonably recent waybar (older LTS releases may ship one too old):
 |----------|---------|
 | sway     | 1.11    |
 | waybar   | 0.15.0  |
-| foot     | 1.25.0  |
+| kitty    | 0.45.0  |
 | mako     | 1.x     |
 | wofi     | 1.5.1   |
 | swaylock | 1.8.4   |
@@ -57,8 +57,8 @@ in the list is generic and not expected to go stale the same way.
 ## Structure
 
 Each top-level directory is a stow package mirroring `$HOME`, e.g.
-`foot/.config/foot/foot.ini` links to `~/.config/foot/foot.ini`. To
-(re)link a single package by hand: `stow -v -t ~ foot`.
+`kitty/.config/kitty/kitty.conf` links to `~/.config/kitty/kitty.conf`. To
+(re)link a single package by hand: `stow -v -t ~ kitty`.
 
 
 ## Wallpaper
