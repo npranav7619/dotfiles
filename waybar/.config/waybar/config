@@ -9,7 +9,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["mpris", "clock#time", "clock#date", "custom/snip"],
-    "modules-right": ["custom/theme", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "custom/monitors", "custom/power", "tray"],
+    "modules-right": ["custom/theme", "custom/settings", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "custom/monitors", "custom/power", "tray"],
 
     "sway/workspaces": {
         "disable-scroll": true,
@@ -62,6 +62,11 @@
         "format": "  {}",
         "tooltip-format": "Click to cycle color theme",
         "on-click": "~/.config/waybar/scripts/cycle-theme.py"
+    },
+    "custom/settings": {
+        "format": "",
+        "tooltip-format": "Change wallpaper",
+        "on-click": "~/.config/waybar/scripts/wallpaper-picker.sh"
     },
     "idle_inhibitor": {
         "format": "{icon}",
