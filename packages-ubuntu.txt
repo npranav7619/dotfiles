@@ -1,5 +1,4 @@
 brightnessctl
-code
 curl
 dash
 diffutils
