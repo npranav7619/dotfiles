@@ -9,7 +9,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["mpris", "clock#time", "clock#date", "custom/snip"],
-    "modules-right": ["custom/theme", "custom/settings", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "custom/monitors", "custom/power", "tray"],
+    "modules-right": ["custom/theme", "custom/settings", "bluetooth", "idle_inhibitor", "pulseaudio", "network", "backlight", "battery", "custom/monitors", "custom/power", "tray"],
 
     "sway/workspaces": {
         "disable-scroll": true,
@@ -96,6 +96,18 @@
         "format-disconnected": "  disconnected",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
         "on-click": "~/.config/waybar/scripts/networkmenu.sh"
+    },
+    "bluetooth": {
+        "format": "  {status}",
+        "format-off": "  Off",
+        "format-no-controller": "  No adapter",
+        "format-on": "  On",
+        "format-connected": "  {device_alias}",
+        "format-connected-battery": "  {device_alias} ({device_battery_percentage}%)",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "~/.config/waybar/scripts/bluetoothmenu.sh"
     },
     "pulseaudio": {
         "format": "{icon}  {volume}%",

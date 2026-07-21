@@ -101,6 +101,7 @@ window#waybar > box {
 #custom-snip,
 #custom-theme,
 #custom-settings,
+#bluetooth,
 #idle_inhibitor,
 #pulseaudio,
 #network,
@@ -192,6 +193,15 @@ window#waybar > box {
 
 #network.disconnected {
     color: @red;
+}
+
+#bluetooth {
+    color: @peach;
+}
+
+#bluetooth.off,
+#bluetooth.disabled {
+    color: @overlay0;
 }
 
 #backlight {

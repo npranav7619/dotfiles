@@ -39,7 +39,7 @@ client.placeholder      $overlay0 $base      $text    $overlay0   $overlay0
 client.background       $base
 
 ### Output
-output * bg ~/dotfiles/wallpapers/diner-lonely-road.jpg fill
+output * bg ~/dotfiles/wallpapers/atlantis.jpg fill
 
 ### Input
 input type:touchpad {
